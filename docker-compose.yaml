@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  k6:
+    image: grafana/k6:0.44.0
+    working_dir: /app/dist
+    volumes:
+    - .:/app
+    command:
+    - run
+    - /app/dist/get-200-status-test.js
+    - --compatibility-mode=base
+
+  init:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+    - .:/app
+    entrypoint: npm install
