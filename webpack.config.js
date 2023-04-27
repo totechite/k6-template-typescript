@@ -35,9 +35,9 @@ module.exports = {
     // Copy assets to the destination folder
     // see `src/post-file-test.ts` for an test example using an asset
     new CopyPlugin({
-      patterns: [{ 
-        from: path.resolve(__dirname, 'assets'), 
-        noErrorOnMissing: true 
+      patterns: [{
+        from: path.resolve(__dirname, 'assets'),
+        noErrorOnMissing: true
       }],
     }),
   ],
@@ -45,4 +45,9 @@ module.exports = {
     // Don't minimize, as it's not used in the browser
     minimize: false,
   },
+  watch: true,
+  watchOptions: {
+    ignored: /node_modules/,
+    aggregateTimeout: 600
+  }
 };
